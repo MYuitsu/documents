@@ -1,6 +1,6 @@
 ## Default Props React Typescript 
 
-```javascripts
+```js
     export interface Props {
     name: string;
     }
