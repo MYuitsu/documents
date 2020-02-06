@@ -19,7 +19,7 @@ public void addAccount(Account account) {
     }
 }
 ```
-![](../imgs/aop-flow-addAccount-example.png)
+![](../../imgs/aop-flow-addAccount-example.png)
 
 2. Khái niệm của AOP
 
