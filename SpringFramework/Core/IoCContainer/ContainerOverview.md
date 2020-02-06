@@ -23,4 +23,30 @@ Theo truyền thống, `metadata` được cấu bình bằng XML (được sử
 
  Cấu hình Spring bao gồm ít nhất một và thường nhiều hơn một `bean` mà `container` phải quản lý. `Metadata` được cấu hình bằng định dạng XML thì các `bean` được định nghĩa bằng tag `<bean />` trong tag `<beans />`. Còn đối với bằng cấu hình bằng Java code sử dụng `@Bean` annotation trên các phương thức nằm trong các `class` có `@Configuration` annotation.
 
- Các định nghĩa `bean` tương ứng với các đố tượng thực tế tạo nên ứng dụng. Thông thường, chúng ta định nghĩa `service layer objects`, đối tượng truy cập dữ liệu (Data access Ojects: DAOs), các đối tượng hạ tầng như `Hibernate`, `SessionFactories`v.v... Chúng ta thường không cấu hình `fine-granied domain object`(các đối tượng domain được chia nhỏ) trong `container`, bởi vì nó thường là nhiệm vụ của DAOs và business logic để tạo và tải các `domain object`.
+ Các định nghĩa `bean` tương ứng với các đố tượng thực tế tạo nên ứng dụng. Thông thường, chúng ta định nghĩa `service layer objects`, đối tượng truy cập dữ liệu (Data access Ojects: DAOs), các đối tượng hạ tầng như `Hibernate`, `SessionFactories`v.v... Chúng ta thường không cấu hình `fine-granied domain object`(các đối tượng domain được chia nhỏ) trong `container`, bởi vì nó thường là nhiệm vụ của DAOs và business logic để tạo và tải các `domain object`. Tuy nhiên, chúng ta có thể sử dụng tích hợp AspectsJ với Spring để cấu hình các đối tượng đã được tạo bên ngoài sự quản lý, điều khiển của IoC container. Xem thêm [Using AspectJ to dependency-inject domain objects with Spring](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html#aop-atconfigurable)
+
+ Bên dưới đây là ví dụ thể hiện cấu trúc cơ bản của cấu hình `metadata` theo định dạng XML.
+ ```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="..." class="...">  
+        <!-- collaborators and configuration for this bean go here -->
+    </bean>
+
+    <bean id="..." class="...">
+        <!-- collaborators and configuration for this bean go here -->
+    </bean>
+
+    <!-- more bean definitions go here -->
+
+</beans>
+ ```
+
+ 1. Thuộc tính `id` là một chuỗi để định danh các `bean` tự định nghĩa.
+ 2. Thuộc tính `class` định nghĩa loại của các `bean` và sử dụng `classname` đủ điều kiện (là classname chỉ định rõ đối tượng, package của đối tượng đó)
+
+ Giá trị của thuộc tính `id` đề cập đến các `collaborating objects`(đối tượng cộng tác). XML để tham chiếu đến các `collaborating objects` không được hiển thị trong ví dụ này. Xem thêm [Dependencies](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html#beans-dependencies)
