@@ -49,4 +49,4 @@ Theo truyền thống, `metadata` được cấu bình bằng XML (được sử
  1. Thuộc tính `id` là một chuỗi để định danh các `bean` tự định nghĩa.
  2. Thuộc tính `class` định nghĩa loại của các `bean` và sử dụng `classname` đủ điều kiện (là classname chỉ định rõ đối tượng, package của đối tượng đó)
 
- Giá trị của thuộc tính `id` đề cập đến các `collaborating objects`(đối tượng cộng tác). XML để tham chiếu đến các `collaborating objects` không được hiển thị trong ví dụ này. Xem thêm [Dependencies](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html#beans-dependencies)
+ Giá trị của thuộc tính `id` đề cập đến các `collaborating objects`(đối tượng cộng tác). XML để tham chiếu đến các `collaborating objects` không được hiển thị trong ví dụ này. Xem thêm [Dependencies](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html#beans-dependencies).
