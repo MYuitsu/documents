@@ -50,3 +50,60 @@ Theo truyền thống, `metadata` được cấu bình bằng XML (được sử
  2. Thuộc tính `class` định nghĩa loại của các `bean` và sử dụng `classname` đủ điều kiện (là classname chỉ định rõ đối tượng, package của đối tượng đó)
 
  Giá trị của thuộc tính `id` đề cập đến các `collaborating objects`(đối tượng cộng tác). XML để tham chiếu đến các `collaborating objects` không được hiển thị trong ví dụ này. Xem thêm [Dependencies](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html#beans-dependencies).
+
+## Khởi tạo container
+
+Đường dẫn vị trí hoặc đường dẫn được cung cấp cho hàm dựng của `ApplicationContext` là chuỗi tài nguyên (resource string) cho phép `container` tải các cấu hình của `metadata` từ nhiều nguồn như hệ thống tập tin cục bộ, Java `CLASSPATH` va2 nhiều nơi khác.
+
+```Java
+ApplicationContext context = new ClassPathXmlApplicationContext("services.xml", "daos.xml");
+```
+
+> Lớp trừa tượng `[Resource](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html#resources)` cung cấp một cơ chế thuận tiện để đọc `InputStream` từ các vị trí được xác định tong cú pháp URI. Cụ thể, các đường dẫn `Resource` được sử dụng để xây dựng `applications contexts`, [được mô tả ở Application Contexts and Resource Paths](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html#resources-app-ctx)
+
+Ví dụ theo sau thể hiện file cấu hình `(services.xml)` của `service layer objects`
+
+```java
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- services -->
+
+    <bean id="petStore" class="org.springframework.samples.jpetstore.services.PetStoreServiceImpl">
+        <property name="accountDao" ref="accountDao"/>
+        <property name="itemDao" ref="itemDao"/>
+        <!-- additional collaborators and configuration for this bean go here -->
+    </bean>
+
+    <!-- more bean definitions for services go here -->
+
+</beans>
+```
+
+Ví dụ bên dưới thể hiện `daos.xml`:
+
+```java
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="accountDao"
+        class="org.springframework.samples.jpetstore.dao.jpa.JpaAccountDao">
+        <!-- additional collaborators and configuration for this bean go here -->
+    </bean>
+
+    <bean id="itemDao" class="org.springframework.samples.jpetstore.dao.jpa.JpaItemDao">
+        <!-- additional collaborators and configuration for this bean go here -->
+    </bean>
+
+    <!-- more bean definitions for data access objects go here -->
+
+</beans>
+```
+
+Ở ví dụ trước, `service layer` bao gồm lớp `PetStoreServiceImpl` và 2 `data access object` của kiểu `JpaAccountDao` và `JpaItemDao` (dựa trên JPA Object-Relationl Mapping standard).Phần tử `property` `name` tương quan đến thuộc tính `name` của `JavaBean` và phần tử `ref` tương quan đến tên của một định nghĩa `bean` khác. Sự liên kết giữa các phần tử `id` và `ref` thể hiện sự phụ thuộc giữa các đối tượng cộng tác. Chi tiết về cấu hình cho các `[object's dependencies](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html#beans-dependencies)`
