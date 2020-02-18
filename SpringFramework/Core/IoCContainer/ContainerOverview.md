@@ -139,7 +139,7 @@ Nội dung của các tệp đang được nhập, bao gồm `phần tử <bean 
 
 >Bạn luôn có thể sử dụng các đường dẫn fully qualified thay vì các đường dẫn tương đối : ví dụ: `file: C: /config/service.xml` hoặc `classpath: /config/service.xml`. Tuy nhiên, lưu ý rằng bạn đang ghép cấu hình ứng dụng của bạn với các vị trí tuyệt đối cụ thể. Nói chung, tốt hơn là giữ một hướng dẫn cho các vị trí tuyệt đối như vậy - ví dụ: thông qua các trình giữ chỗ "$ {...}" được giải quyết theo các thuộc tính hệ thống JVM khi chạy.
 
-### 2.3. DSL định nghĩa Groovy Bean <a name="confGroovy">
+### 2.3. DSL định nghĩa Groovy Bean <a name="confGroovy"></a>
 Là một ví dụ khác cho configuration metadata bên ngoài, các định nghĩa bean cũng có thể được thể hiện trong Spring’s Groovy Bean Definition DSL, như được biết từ Grails framework. Thông thường, cấu hình như vậy nằm trong tệp ".groovy" với cấu trúc được hiển thị trong ví dụ sau:
 ```groovy
 beans {
@@ -162,7 +162,7 @@ beans {
 ```
 Kiểu cấu hình này phần lớn tương đương định nghĩa bean bằng XML, thậm chí còn hỗ trợ Spring’s XML configuration namespaces. Nó cũng cho phép nhập các tệp XML định nghĩa bean thông qua lệnh `importBeans`.
 
-## 3. Sử dụng Container <a name="usingContainer">
+## 3. Sử dụng Container <a name="usingContainer"></a>
 `ApplicationContext` là giao diện cho advanced factory có khả năng duy trì sổ đăng ký của các bean khác nhau và các phụ thuộc của chúng. Bằng các sử dụng phương thức `T getBean(String name, Class<T> requiredType)`, có thể lấy lại các thể hiện - (retrieve instance) của bean.
 
 `ApplicationContext` cho phép đọc và truy cập các định nghĩa bean, như ví dụ sau:
