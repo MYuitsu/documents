@@ -1,0 +1,2 @@
+# Rust note for DevOps
+
